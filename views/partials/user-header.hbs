@@ -1,0 +1,58 @@
+<header style="background-color: #131725;">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"
+        style="font-size: 2rem;color:#fff;font-weight:bold;font-family:sans-serif;letter-spacing:2px;">C<span
+          style="color: #cdf008;">O</span>WIN</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+        style="background: #203040;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="/">help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/cart">FAQ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/register" style="background-color: #b8d60b;padding:8px;">Register</a>
+          </li>
+          {{#if user}}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Orders</a>
+          </li>
+          {{/if}}
+        </ul>
+        <li class="nav-item dropdown" style="list-style: none;">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{#if user}}
+            {{user.Name}}
+            {{else}}
+            Account
+            {{/if}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {{#if user}}
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {{else}}
+            <li><a class="dropdown-item" href="/login">Login</a></li>
+            {{/if}}
+
+          </ul>
+        </li>
+      </div>
+    </div>
+  </nav>
+</header>
+<section class="bg-light">
+  <marquee dir="left"><h6 style="color: red;">Toll-free number : 1800-270-2525 <i class="fa fa-phone"></i>, Symptoms: Fever,Cough,,Shortness of
+            breath or
+            difficulty breathing..If you have any symtopms immediately contact your nearest medical center</h6></marquee>
+</section>

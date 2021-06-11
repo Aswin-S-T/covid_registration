@@ -1,0 +1,231 @@
+{{!-- <section>
+    <div class="container mt-5">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-3">
+                <div class="card" style="width: 15rem; height:27rem">
+                    <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="..." style="height: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.Name}}</h5>
+                        <p class="card-text text-success" style="font-weight: 600;">{{this.Offer}}% Offer</p>
+                        <p class="card-text" style="font-weight: bold;">Rs: {{this.Price}}</p>
+                        <a href="/add-to-cart/{{this._id}}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+--}}
+
+<section id="home" style="position: relative;">
+    <div>
+        <img class="w-100"
+            src="https://cnrc.canada.ca/sites/default/files/2020-08/covid-19-vaccine-task-force-banner-1170x347.jpg"
+            alt="">
+        <div class="centered">
+            <h1
+                style="position: absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;;font-weight:bold;">
+                Take Vaccine Keep Safe</h1>
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container mt-5">
+        <h4 style="display: flex;justify-content:center;font-size:23px;">Check your nearest vaccination center and slots
+            avalilability</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" placeholder="Search location for vaccination" id="country"
+                    class="form-control mt-4 bg-light" style="border-top: none;border-left:none;border-right:none;">
+                <ul id="autocomplete-results"></ul>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="btn btn-success mt-4" onclick="searchPlace">Search</a>
+            </div>
+        </div>
+        <div id="googleMap" style="width:500px;height:380px;" class="w-100"></div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam illum nemo illo ex nam vel quas aliquam!
+            Expedita maiores repellendus libero corporis quibusdam, explicabo facilis aliquam eum voluptatum unde
+            voluptatibus!</p>
+    </div>
+</section>
+<section style="background-color: rgb(240, 243, 47);" class="p-5">
+    <h3 style="display:flex;justify-content:center;top:30px;position:relative;font-family:sans-serif;font-weight:bold">
+        How it Works</h3>
+    <div class="container" style="top:20px;position:relative;">
+        <div class="row m-5">
+            <div class="col-md-3">
+                <div class="ionL">
+                    <i class="fa fa-address-book"></i>
+                </div>
+                <div class="infB">
+                    <h4>REGISTER YOURSELF</h4>
+                </div>
+                <div class="infB">
+                    <p>Register using your Mobile no or Adhar no or any Identity docs</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="ionL">
+                    <i class="fa fa-map-marker"></i>
+                </div>
+                <div class="infB">
+                    <h4>CHOOSE VACCINE LOCATION</h4>
+                </div>
+                <div class="infB">
+                    <p>Select your nearby vaccination center for vaccine</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="ionL">
+                    <i class="fa fa-bookmark"></i>
+                </div>
+                <div class="infB">
+                    <h4>CONFIRM YOUR SLOT</h4>
+                </div>
+                <div class="infB">
+                    <p>Book your slot to get Vaccine.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="ionL">
+                    <i class="fa fa-history"></i>
+                </div>
+                <div class="infB">
+                    <h4>ANY QUESTIONS</h4>
+                </div>
+                <div class="infB">
+                    <p>Please follow our Frequenty Ask Questions(FAQ)</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-6" style="border: 2px solid #fff;display:flex;justify-content:center;">
+                        <h5>Know how to book your appointment</h5>
+                    </div>
+                    <div class="col-md-4"
+                        style="border: 2px solid #fff;margin-left:5px;display:flex;justify-content:center;width:200px;">
+                        <h5>Dos and Dont's</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    var targetInput = document.getElementById('country')
+    var productHelpers = require('../helpers/product-helpers')
+    var results = document.getElementById('autocomplete-results')
+    var countryList = ['Albania', 'Colombia', 'Cuba', 'Salvador', 'India']
+    
+
+
+    matches = []
+    resultCursor = 0
+
+    targetInput.focus();
+
+    targetInput.addEventListener("keydown", function (event) {
+        if (event.keyCode == '13') {
+            event.preventDefault()
+        }
+    })
+
+ 
+
+
+    targetInput.addEventListener('keyup', function (event) {
+        results.innerHTML = '';
+        toggleResults('hide');
+
+        if (this.value.length > 0) {
+            matches = getMatches(this.value)
+
+            if (matches.length > 0) {
+                displayMatches(matches)
+            }
+        }
+
+        if (results.classList.contains('visible')) {
+            switch (event.keyCode) {
+                case 13:
+                    targetInput.value = results.children[resultCursor].innerHTML;
+                    toggleResults('hide')
+                    resultCursor = 0
+                    break;
+                case 30:
+                    if (resultCursor > 0) {
+                        resultCursor--;
+                        moveCursor(resultCursor)
+                    }
+                    break;
+                case 40:
+                    if (resultCursor < (matches.length - 1)) {
+                        resultCursor++;
+                        moveCursor(resultCursor)
+                    }
+                    break;
+            }
+        }
+    });
+
+    function toggleResults(action) {
+        if (action == 'show') {
+            results.classList.add('visible');
+        } else if (action == 'hide') {
+            results.classList.remove('visible')
+        }
+    }
+
+    function getMatches(inputText) {
+        var matchList = [];
+        for (var i = 0; i < countryList.length; i++) {
+            if (countryList[i].toLowerCase().indexOf(inputText.toLowerCase()) != -1) {
+                matchList.push(countryList[i])
+            }
+        }
+        return matchList;
+    }
+
+
+    function displayMatches(matchList) {
+        var j = 0;
+        while (j < matchList.length) {
+            results.innerHTML += `<li class="result">` + matchList[j] + `</li>`;
+            j++;
+        }
+
+        moveCursor(resultCursor)
+
+        toggleResults('show')
+    }
+    function moveCursor(pos) {
+        for (var x = 0; x < results.children.length; x++) {
+            results.children[x].classList.remove('highlighted')
+        }
+        results.children[pos].classList.add('highlighted')
+    }
+
+</script>
+<style>
+    li {
+        list-style: none;
+    }
+
+    .visible {
+        background-color: whitesmoke;
+        padding: 10px;
+    }
+
+    .highlighted {
+        background-color: #ddd;
+        padding: 10px;
+    }
+</style>

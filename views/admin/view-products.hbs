@@ -1,0 +1,162 @@
+{{!-- 
+<section>
+    <div class="container">
+            <div>
+                <a href="/admin/add-product" class="btn btn-success mt-4" style="float:right">Add Product</a>
+            </div>
+        <table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">District</th>
+            <th scope="col">Center</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th scope="col">NOD</th>
+            <th scope="col">Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{this.fname}}</td>
+            <td>{{this.lname}}</td>
+            <td>{{this.gender}}</td>
+            <td>{{this.age}}</td>
+            <td>{{this.place}}</td>
+            <td>{{this.center}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{this.dos}}</td>
+            <td>{{this.Image}}</td>
+
+            <td><img style="width:70px;height:70px;"src="/product-images/{{this._id}}.jpg" alt=""></td>
+            <td>
+                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you really want to delete?')">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+    </div>
+</section> --}}
+
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+<h2>My Customers</h2>
+<div>
+                <a href="/admin/add-product" class="btn btn-success mt-4" style="float:right">Add Product</a>
+            </div>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+
+<table id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">District</th>
+            <th scope="col">Center</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th scope="col">NOD</th>
+            <th scope="col">Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+        <tr>
+            <th scope="row">1</th>
+            <td><a href="#">{{this.fname}}</a></td>
+            <td>{{this.lname}}</td>
+            <td>{{this.gender}}</td>
+            <td>{{this.age}}</td>
+            <td>{{this.place}}</td>
+            <td>{{this.center}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{this.dos}}</td>
+            <td>{{this.Image}}</td>
+
+            <td><img style="width:70px;height:70px;"src="/product-images/{{this._id}}.jpg" alt=""></td>
+            <td>
+                <a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a>
+                <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you really want to delete?')">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+  
+</table>
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+
